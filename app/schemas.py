@@ -54,3 +54,15 @@ class InviteMemberIn(BaseModel):
 
 class ChangeMemberRoleIn(BaseModel):
     new_role: str = Field(min_length=1)
+
+
+class RoleIdWiseCountOut(BaseModel):
+    id: int
+    name: str
+    user_count: int
+
+
+class OrgWiseRoleWiseCountOut(BaseModel):
+    id: int
+    name: str
+    roles: list[RoleIdWiseCountOut]

@@ -169,21 +169,40 @@ def get_role_wise_user_count(db: Session):
 
 def get_org_wise_user_count(db: Session):
     return db.query(
-        Organization.name,
+        Organization,
         func.count(Member.id)
     ).join(
         Member, Member.org_id == Organization.id
-    ).group_by(Organization.name)
+    ).group_by(Organization.id)
 
 
 def get_org_wise_role_wise_count(db: Session):
-    return db.query(
-        Organization.id,
-        Organization.name,
-        Role.name,
+    result = db.query(
+        Organization,
+        Role,
         func.count(Member.id)
     ).join(
         Member, Member.org_id == Organization.id
     ).join(
         Role, Role.id == Member.role_id
-    ).group_by(Organization.id, Organization.name, Role.name).all()
+    ).group_by(Organization.id, Role.id).all()
+
+    role = Role()
+
+    id_to_org_map = {}
+    for org, role, user_count in result:
+        role_out = schemas.RoleIdWiseCountOut(
+            id=role.id,
+            name=role.name,
+            user_count=user_count
+        )
+        if org.id not in id_to_org_map:
+            org_out = schemas.OrgWiseRoleWiseCountOut(
+                id=org.id,
+                name=org.name,
+                roles=[]
+            )
+            id_to_org_map[org.id] = org_out
+        id_to_org_map[org.id].roles.append(role_out)
+
+    return [dict(value) for value in id_to_org_map.values()]

@@ -22,14 +22,4 @@ def organization_wise_number_of_users(db: Annotated[Session, Depends(get_db)]):
 @router.get("/org-role-wise-users")
 def organisation_wise_role_wise_number_of_users(db: Annotated[Session, Depends(get_db)]):
     result = crud.get_org_wise_role_wise_count(db=db)
-    print(result)
-
-    return [
-        {
-            "organization_id": item[0],
-            "organization": item[1],
-            "role": item[2],
-            "user_count": item[3]
-        }
-        for item in result
-    ]
+    return result
