@@ -9,6 +9,19 @@ Ensure your system meets the following requirements:
 
 Before starting, make sure to configure the necessary environment variables in the `.env` file. These are crucial for the application's security and integration.
 
+You can modify the instructions like this:
+
+---
+
+### Step 1: Copy and Update Environment Variables
+
+1. **Copy the `.env.example` file** to create your own `.env` file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Open the `.env` file and update the necessary environment variables. These are crucial for the application's security and integration.
+
 #### Must-Do:
 - `JWT_SECRET_KEY` – Set your secret key for JWT token signing.
 - `RESEND_API_KEY` – Set your API key for Resend (email service).
