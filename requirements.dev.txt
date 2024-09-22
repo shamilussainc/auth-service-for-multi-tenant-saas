@@ -1,0 +1,2 @@
+pre-commit==3.8.0
+autopep8==2.3.1
