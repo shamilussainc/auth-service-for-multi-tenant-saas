@@ -32,7 +32,7 @@ Once the environment variables are set, follow these steps to start the service:
 
 1. Run the following command to build and start the containers:
    ```bash
-   docker-compose up --build
+   docker compose up --build
    ```
 
 ### Step 3: Apply Database Migrations
@@ -41,7 +41,7 @@ To set up the database schema, you'll need to run Alembic migrations.
 
 1. Once the Docker containers are running, execute the following command to enter the container shell:
    ```bash
-   docker-compose exec -it bash
+   docker compose exec -it server bash
    ```
 
 2. Inside the container, apply the Alembic migrations:
